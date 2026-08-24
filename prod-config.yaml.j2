@@ -165,6 +165,24 @@ subcharts:
       requests:
         cpu: 1
         memory: 2Gi
+    # Optional: auto-start the local_hermesagent ACP bridge (FastAPI, port 9118)
+    # on every phpfpm-0 boot so it survives pod recreation. Runs as root
+    # (php-fpm master is root), drops to www-data, and no-ops if the plugin /
+    # venv is absent. See default-config.yaml.j2 for the full explanation.
+    # lifecycle:
+    #   postStart:
+    #     exec:
+    #       command:
+    #       - sh
+    #       - -c
+    #       - |
+    #         H=/var/www/moodledata/.hermes
+    #         S=/var/www/html/public/local/hermesagent/hermes-bridge-control.sh
+    #         if [ -f "$S" ] && [ -f "$H/classes/bridge/acp_bridge.py" ]; then
+    #           mkdir -p "$H/logs" 2>/dev/null || true
+    #           su -s /bin/sh www-data -c "sh '$S' start >> $H/logs/bridge.log 2>&1" || true
+    #         fi
+    #         exit 0
 
   # Settings for the database server for moodle
   mariadb:

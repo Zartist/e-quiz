@@ -43,6 +43,7 @@ To customize the deployment, you can use the following make commands from the [M
 - Running any of these commands will rerun `make config`, which generates the distribution folder and overwrites existing files in the folder. If you have made manual edits, navigate to the distribution folder and run the command without running `make config` to preserve your changes.
 - If you need to switch between configurations or distributions, you can customize the [Makefile](Makefile) to set the configuration and distribution paths according to your requirements.
 - To customize how to attach a shell to phpfpm container, you can edit [`template/attach/init.sh`](template/attach/init.sh) and add files to `template/attach` to suit your specific needs.
+- To auto-start an in-pod background service on every phpfpm container boot, set the optional `phpfpm.lifecycle` value (see `default-config.yaml.j2` / `prod-config.yaml.j2` for a sample). This is how the `local_hermesagent` plugin keeps its ACP bridge running across pod recreation — see the [CHANGELOG](CHANGELOG.md) for details.
 
 ## Performance
 

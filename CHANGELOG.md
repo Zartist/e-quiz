@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+#### Optional phpfpm container lifecycle hooks
+- The phpfpm StatefulSet now renders an optional `phpfpm.lifecycle` value
+  (`postStart` / `preStop`), the same way the probes are supplied from values.
+  The chart default is empty (`lifecycle: {}`), so instances without an
+  in-pod service are unaffected.
+- For Moodle instances running the `local_hermesagent` plugin, supply a
+  `postStart` hook from the per-course config (under `phpfpm:` in
+  `values/e-quiz/<course>.yaml.j2`) so the ACP bridge (FastAPI, port 9118)
+  auto-starts on every phpfpm-0 boot. Without it the bridge is lost whenever
+  the pod is recreated (redeploy / crash). Sample hooks (commented) are in
+  `default-config.yaml.j2` and `prod-config.yaml.j2`; a live example is
+  `values/e-quiz/cs2310-26a.yaml.j2` in the consuming dive-deploy repo.
+
 ## [0.4.5] - 2026-08-10
 
 ### Fixed
