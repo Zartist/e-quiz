@@ -57,6 +57,10 @@ phpfpm:
     periodSeconds: 5
     timeoutSeconds: 3
     failureThreshold: 120
+  # Optional container lifecycle hooks (e.g. postStart to auto-start an
+  # in-pod service). Default empty so instances without such a service
+  # (i.e. no local_hermesagent plugin) get no hook.
+  lifecycle: {}
 
 # Settings for mariadb for the moodle database
 mariadb:
